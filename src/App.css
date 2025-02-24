@@ -1,0 +1,55 @@
+.button{
+  background-color:black;
+  color:white;
+  font-family:'Arial Narrow Bold';
+  margin:5px;
+  padding:5px;
+  font-weight: bold;
+  border-color:white;
+  border-radius:10px;
+  height:30px;
+  width:80px;
+}
+
+.container{
+  display:flex;
+  margin:20px;
+  padding:10px;
+  text-align: center;
+  align-items: center;
+}
+
+img{
+  border-radius:10px;
+  margin:5px;
+  box-shadow: inset;
+}
+
+.gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px; 
+}
+
+.gallery-item {
+  width: 23%; 
+  margin-bottom: 15px; 
+}
+
+.gallery-item img {
+  width: 100%; 
+  border-radius: 8px; 
+}
+
+
+@media (max-width: 992px) { 
+  .gallery-item {
+      width: 48%;
+  }
+}
+
+@media (max-width: 576px) { 
+  .gallery-item {
+      width: 100%; 
+  }
+}
