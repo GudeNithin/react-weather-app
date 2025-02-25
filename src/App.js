@@ -1,42 +1,43 @@
 import React,{useState} from 'react'
-import axios from 'axios';
-import Gallery from './Gallery'
+import TodoList from './TodoList';
 import './App.css'
 
-const apiKey = "636e1481b4f3c446d26b8eb6ebfe7127";
 const App = () => {
-  const [search,setSearch]=useState('');
-  const [data,setData]=useState([]);
+  const [task,setTask]=useState("");
+  const [todos,setTodos]=useState([]);
 
   const handler=e=>{
-     setSearch(e.target.value);
+    setTask(e.target.value);
   }
 
-  const submitHandler=e=>{
+  const onSubmitHandler=e=>{
     e.preventDefault();
-    axios
-    .get(
-      `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${search}&per_page=24&format=json&nojsoncallback=1`
-    ).then(
-        response=>setData(response.data.photos.photo)
-    )
-
+    const newTodo=[...todos,task];
+    setTodos(newTodo);
+    setTask("");
+  }
+  
+  const deleteHandler=(indexVal)=>{
+    const newTodo=todos.filter((todo,index)=>index!==indexVal);
+    setTodos(newTodo);
   }
 
   return (
-    <div>
-      <center>
-       <h3><b>React Photo Gallery</b></h3>
-       <form onSubmit={submitHandler}>
-        <input type="text" placeholder="Enter Search Element" value={search} onChange={handler} /><br/>
-        <input className="button" type="submit" name="Search"/>
-       </form>
-       {data.length>0?<Gallery data={data}/>:<h5>No Data Loaded</h5>}
-      </center>
+    <center>
+      <div>
+      <div className="card">
+        <div className="card-body">
+          <h2>Todo Management</h2>
+          <form onSubmit={onSubmitHandler}>
+            <input type="text" value={task} onChange={handler}/> &nbsp;
+            <input className="button" type="submit" name="Add" value="Add"/>
+          </form>
+          <TodoList todolist={todos} deleteHandler={deleteHandler}/>
+        </div>
+      </div>
     </div>
+    </center>
   )
 }
 
-
-
-export default App;
+export default App
